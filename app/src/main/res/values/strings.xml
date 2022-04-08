@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">Poc Pay</string>
+    <string name="add_button">Add</string>
+    <string name="send_button">SEND</string>
+    <string name="title_transactions">Transactions</string>
+    <string name="title_add_transaction">Add Transaction</string>
+    <string name="back_button_description">Back</string>
+</resources>
