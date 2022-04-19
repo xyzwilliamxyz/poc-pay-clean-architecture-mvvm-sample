@@ -13,5 +13,6 @@ interface TransactionsContract {
 
     sealed class Interaction {
         object OnAddClick: Interaction()
+        data class OnTransactionClick(val transaction: Transaction): Interaction()
     }
 }

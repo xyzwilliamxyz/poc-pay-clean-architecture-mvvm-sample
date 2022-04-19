@@ -8,6 +8,7 @@ import androidx.compose.material.CircularProgressIndicator
 import androidx.compose.material.OutlinedTextField
 import androidx.compose.material.Scaffold
 import androidx.compose.material.Text
+import androidx.compose.material.rememberScaffoldState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Alignment
@@ -33,6 +34,8 @@ fun AddTransactionScreen(
     onNavigate: () -> Unit,
     viewModel: AddTransactionViewModel = hiltViewModel()
 ) {
+    val scaffoldState = rememberScaffoldState()
+
     LaunchedEffect(key1 = true) {
         viewModel.uiEvent.collect { event ->
             when (event) {
@@ -44,6 +47,7 @@ fun AddTransactionScreen(
 
     Scaffold(
         modifier = modifier.fillMaxWidth(),
+        scaffoldState = scaffoldState,
         topBar = {
             PocPayToolbar(
                 title = stringResource(R.string.title_add_transaction),

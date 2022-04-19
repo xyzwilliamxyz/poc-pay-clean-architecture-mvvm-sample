@@ -19,13 +19,13 @@ fun PocPayToolbar(
     backAvailable: Boolean = false,
     onBackClicked: () -> Unit = {}
 ) {
-    if (backAvailable) {
-        TopAppBar(
-            modifier = modifier,
-            title = {
-                Text(title)
-            },
-            navigationIcon = {
+    TopAppBar(
+        modifier = modifier,
+        title = {
+            Text(title)
+        },
+        navigationIcon = if (backAvailable) {
+            {
                 IconButton(onClick = { onBackClicked() }) {
                     Icon(
                         imageVector = Icons.Filled.ArrowBack,
@@ -34,14 +34,6 @@ fun PocPayToolbar(
                     )
                 }
             }
-        )
-    } else {
-        TopAppBar(
-            modifier = modifier,
-            title = {
-                Text(title)
-            }
-        )
-    }
-
+        } else null
+    )
 }

@@ -1,14 +1,13 @@
-package com.example.pocpay.ui.transactions
+package com.example.pocpay.ui.transactiondetails
 
+import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.pocpay.di.CoroutineDispatcherProvider
 import com.example.pocpay.domain.interactor.TransactionUseCase
-import com.example.pocpay.router.TransactionRouter
 import com.example.pocpay.ui.common.UiEvent
-import com.example.pocpay.ui.transactions.TransactionsContract.Interaction.OnAddClick
-import com.example.pocpay.ui.transactions.TransactionsContract.Interaction.OnTransactionClick
-import com.example.pocpay.ui.transactions.TransactionsContract.UiState
+import com.example.pocpay.ui.transactiondetails.TransactionDetailsContract.Interaction.OnBackClick
+import com.example.pocpay.ui.transactiondetails.TransactionDetailsContract.UiState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 import kotlinx.coroutines.channels.Channel
@@ -21,11 +20,11 @@ import kotlinx.coroutines.flow.receiveAsFlow
 import kotlinx.coroutines.launch
 
 @HiltViewModel
-class TransactionsViewModel @Inject constructor(
+class TransactionDetailsViewModel @Inject constructor(
     private val transactionUseCase: TransactionUseCase,
+    savedStateHandle: SavedStateHandle,
     private val coroutineDispatcherProvider: CoroutineDispatcherProvider
 ): ViewModel() {
-
     private val _uiState = MutableStateFlow<UiState>(UiState.Empty)
     val uiState = _uiState.asStateFlow()
 
@@ -33,29 +32,29 @@ class TransactionsViewModel @Inject constructor(
     val uiEvent = _uiEvent.receiveAsFlow()
 
     init {
-        fetchTransactions()
-    }
-
-    fun onEvent(interaction: TransactionsContract.Interaction) {
-        when (interaction) {
-            is OnAddClick -> {
-                sendUiEvent(UiEvent.Navigate(TransactionRouter.ADD_TRANSACTION))
-            }
-            is OnTransactionClick -> {
-                val transactionId = interaction.transaction.id
-                sendUiEvent(UiEvent.Navigate(TransactionRouter.getTransactionDetailsRoute(transactionId)))
-            }
+        val transactionId = savedStateHandle.get<Long>("transactionId")
+        if (transactionId != null) {
+            loadTransactions(transactionId)
         }
     }
 
-    private fun fetchTransactions() {
+    fun onEvent(interaction: TransactionDetailsContract.Interaction) {
+        when (interaction) {
+            OnBackClick -> sendUiEvent(UiEvent.PopBackStack)
+        }
+    }
+
+    private fun loadTransactions(transactionId: Long) {
         viewModelScope.launch {
-            transactionUseCase.getTransactions()
-                .onStart { _uiState.value = UiState.Loading }
+            transactionUseCase
+                .getTransactionById(transactionId)
+                .onStart {  }
+                .catch {
+                    _uiState.value = UiState.Error("Error")
+                }
                 .flowOn(coroutineDispatcherProvider.io())
-                .catch { _uiState.value = UiState.Error("ERROR") }
-                .collect { transactions ->
-                    _uiState.value = UiState.Loaded(transactions)
+                .collect { transaction ->
+                    _uiState.value = UiState.Loaded(transaction)
                 }
         }
     }

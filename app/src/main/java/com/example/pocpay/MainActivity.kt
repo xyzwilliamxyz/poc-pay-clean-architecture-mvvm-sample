@@ -13,6 +13,7 @@ import com.example.pocpay.router.TransactionRouter
 import com.example.pocpay.router.TransactionRouter.PARAM_TRANSACTION_ID
 import com.example.pocpay.ui.addtransaction.AddTransactionScreen
 import com.example.pocpay.ui.theme.PocPayTheme
+import com.example.pocpay.ui.transactiondetails.TransactionDetailsScreen
 import com.example.pocpay.ui.transactions.TransactionsScreen
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -54,9 +55,9 @@ class MainActivity : ComponentActivity() {
                             }
                         )
                     ) {
-                        TransactionsScreen(
+                        TransactionDetailsScreen(
                             onNavigate = {
-                                navController.navigate(TransactionRouter.ADD_TRANSACTION)
+                                navController.popBackStack()
                             }
                         )
                     }

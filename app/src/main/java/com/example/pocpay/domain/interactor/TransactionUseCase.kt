@@ -13,8 +13,8 @@ class TransactionUseCase @Inject constructor(
         return transactionRepository.getTransactions()
     }
 
-    suspend fun getTransactionById(): Flow<List<Transaction>> {
-        return transactionRepository.getTransactions()
+    suspend fun getTransactionById(transactionId: Long): Flow<Transaction> {
+        return transactionRepository.getTransactionById(transactionId)
     }
 
     suspend fun saveTransaction(transaction: Transaction) {

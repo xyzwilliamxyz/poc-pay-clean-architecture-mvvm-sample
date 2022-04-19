@@ -29,6 +29,7 @@ import com.example.pocpay.domain.model.Transaction
 import com.example.pocpay.ui.common.UiEvent
 import com.example.pocpay.ui.common.component.PocPayToolbar
 import com.example.pocpay.ui.transactions.TransactionsContract.Interaction
+import com.example.pocpay.ui.transactions.TransactionsContract.Interaction.OnTransactionClick
 
 @Composable
 fun TransactionsScreen(
@@ -71,13 +72,16 @@ fun TransactionsScreen(
             is TransactionsContract.UiState.Empty -> {}
             is TransactionsContract.UiState.Loading -> {}
             is TransactionsContract.UiState.Error -> {}
-            is TransactionsContract.UiState.Loaded -> TransactionsList(uiState.value)
+            is TransactionsContract.UiState.Loaded -> TransactionsList(viewModel, uiState.value)
         }
     }
 }
 
 @Composable
-private fun TransactionsList(transactions: List<Transaction>) {
+private fun TransactionsList(
+    viewModel: TransactionsViewModel,
+    transactions: List<Transaction>
+) {
     LazyColumn(
         modifier = Modifier.fillMaxSize()
     ) {
@@ -86,7 +90,7 @@ private fun TransactionsList(transactions: List<Transaction>) {
                 transaction = transaction,
                 modifier = Modifier
                     .fillMaxWidth()
-                    .clickable { /* TODO */ }
+                    .clickable { viewModel.onEvent(OnTransactionClick(transaction)) }
                     .padding(16.dp)
             )
             if (index < transactions.lastIndex) {
