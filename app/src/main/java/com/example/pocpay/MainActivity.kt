@@ -1,7 +1,6 @@
 package com.example.pocpay
 
 import android.os.Bundle
-import android.view.WindowManager
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.navigation.NavType
@@ -9,12 +8,12 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
-import com.example.pocpay.router.TransactionRouter
-import com.example.pocpay.router.TransactionRouter.PARAM_TRANSACTION_ID
-import com.example.pocpay.ui.addtransaction.AddTransactionScreen
-import com.example.pocpay.ui.theme.PocPayTheme
-import com.example.pocpay.ui.transactiondetails.TransactionDetailsScreen
-import com.example.pocpay.ui.transactions.TransactionsScreen
+import com.example.pocpay.feature.transaction.router.TransactionRouter
+import com.example.pocpay.feature.transaction.router.TransactionRouter.PARAM_TRANSACTION_ID
+import com.example.pocpay.feature.add.AddTransactionScreen
+import com.example.pocpay.core.ui.theme.PocPayTheme
+import com.example.pocpay.feature.transactiondetails.TransactionDetailsScreen
+import com.example.pocpay.feature.list.TransactionsScreen
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint

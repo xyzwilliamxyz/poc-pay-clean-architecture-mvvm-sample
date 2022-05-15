@@ -1,6 +1,6 @@
 package com.example.pocpay.data.remote.mapper
 
-import com.example.pocpay.domain.model.CurrencyExchange
+import com.example.pocpay.feature.transaction.domain.model.CurrencyExchange
 import javax.inject.Inject
 
 

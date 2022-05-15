@@ -4,7 +4,7 @@ import android.content.Context
 import android.net.ConnectivityManager
 import android.net.NetworkCapabilities
 import android.os.Build
-import com.example.pocpay.domain.exception.NoInternetConnectionException
+import com.example.pocpay.core.exception.NoInternetConnectionException
 import okhttp3.Interceptor
 import okhttp3.Response
 

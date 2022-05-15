@@ -2,7 +2,7 @@ package com.example.pocpay.data.local.repository
 
 import com.example.pocpay.data.local.dao.TransactionDao
 import com.example.pocpay.data.local.mapper.TransactionMapper
-import com.example.pocpay.domain.model.Transaction
+import com.example.pocpay.feature.transaction.domain.model.Transaction
 import javax.inject.Inject
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map

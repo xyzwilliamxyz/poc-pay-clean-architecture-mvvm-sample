@@ -1,8 +1,8 @@
 package com.example.pocpay.data.local.mapper
 
 import com.example.pocpay.data.local.entity.TransactionEntity
-import com.example.pocpay.domain.enums.CountryEnum
-import com.example.pocpay.domain.model.Transaction
+import com.example.pocpay.feature.transaction.domain.enums.CountryEnum
+import com.example.pocpay.feature.transaction.domain.model.Transaction
 import javax.inject.Inject
 
 class TransactionMapper @Inject constructor() {

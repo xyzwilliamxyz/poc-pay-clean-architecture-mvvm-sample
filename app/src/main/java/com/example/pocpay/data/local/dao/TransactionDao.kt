@@ -4,7 +4,6 @@ import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.Query
 import com.example.pocpay.data.local.entity.TransactionEntity
-import com.example.pocpay.domain.model.Transaction
 import kotlinx.coroutines.flow.Flow
 
 @Dao
